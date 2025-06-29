@@ -23,6 +23,7 @@ import { IconComponent } from "./Icons";
 import { Preset } from "../presets";
 import { AiModel } from "@/api/ai";
 import { Extension } from "@/api/store";
+import { useTranslation } from "@/utils/useLanguage";
 
 export const creativity = {
   none: ["None", "No Creativity"],
@@ -45,12 +46,13 @@ export function PresetComponent({
   const [toastMessage, setToastMessage] = React.useState("");
   const router = useRouter();
   const model = models?.find((m) => m.id === preset.model);
+  const { t } = useTranslation();
 
   const handleCopyInstruction = React.useCallback(() => {
     copy(preset.instructions);
-    setToastMessage("Copied to clipboard");
+    setToastMessage(t("presets.copiedToClipboard"));
     setShowToast(true);
-  }, [preset.instructions]);
+  }, [preset.instructions, t]);
 
   const handleAddToRaycast = React.useCallback(() => addToRaycast(router, preset), [router, preset]);
 
@@ -60,12 +62,12 @@ export function PresetComponent({
 
   const handleCopyData = React.useCallback(() => {
     copyData(preset);
-    setToastMessage("Copied to clipboard");
+    setToastMessage(t("presets.copiedToClipboard"));
     setShowToast(true);
-  }, [preset]);
+  }, [preset, t]);
 
   const handleCopyUrl = React.useCallback(async () => {
-    setToastMessage("Copying URL to clipboard...");
+    setToastMessage(t("presets.copyingURL"));
     setShowToast(true);
 
     const url = makeUrl(preset);
@@ -83,8 +85,8 @@ export function PresetComponent({
 
     copy(urlToCopy);
     setShowToast(true);
-    setToastMessage("Copied URL to clipboard!");
-  }, [preset]);
+    setToastMessage(t("presets.urlCopied"));
+  }, [preset, t]);
 
   React.useEffect(() => {
     if (showToast) {
@@ -106,7 +108,11 @@ export function PresetComponent({
               <div className={styles.header}>
                 <p className={styles.name}>
                   {preset.name}
-                  {preset.author ? <span className={styles.presetAuthor}>by {preset.author.name}</span> : null}
+                  {preset.author ? (
+                    <span className={styles.presetAuthor}>
+                      {t("presets.by")} {preset.author.name}
+                    </span>
+                  ) : null}
                 </p>
                 <p className={styles.presetDescription}>{preset.description}</p>
               </div>
@@ -152,7 +158,7 @@ export function PresetComponent({
                               .join(", ")}
                           </span>
                         </TooltipTrigger>
-                        <TooltipContent>AI Extensions</TooltipContent>
+                        <TooltipContent>{t("presets.extensions")}</TooltipContent>
                       </Tooltip>
                     ) : null}
                   </>
@@ -192,19 +198,19 @@ export function PresetComponent({
         <ContextMenu.Portal>
           <ContextMenu.Content className={styles.contextMenuContent}>
             <ContextMenu.Item className={styles.contextMenuItem} onSelect={handleAddToRaycast}>
-              <PlusCircleIcon /> Add to Raycast
+              <PlusCircleIcon /> {t("presets.addToRaycast")}
             </ContextMenu.Item>
             <ContextMenu.Item className={styles.contextMenuItem} onSelect={handleDownload}>
-              <DownloadIcon /> Download JSON
+              <DownloadIcon /> {t("presets.downloadJSON")}
             </ContextMenu.Item>
             <ContextMenu.Item className={styles.contextMenuItem} onSelect={handleCopyData}>
-              <CopyClipboardIcon /> Copy JSON
+              <CopyClipboardIcon /> {t("presets.copyJSON")}
             </ContextMenu.Item>
             <ContextMenu.Item className={styles.contextMenuItem} onSelect={handleCopyInstruction}>
-              <CopyClipboardIcon /> Copy Instructions
+              <CopyClipboardIcon /> {t("presets.copyInstructions")}
             </ContextMenu.Item>
             <ContextMenu.Item className={styles.contextMenuItem} onSelect={handleCopyUrl}>
-              <LinkIcon /> Copy URL to Share
+              <LinkIcon /> {t("presets.copyURLToShare")}
             </ContextMenu.Item>
           </ContextMenu.Content>
         </ContextMenu.Portal>

@@ -3,6 +3,7 @@
 import React from "react";
 import copy from "copy-to-clipboard";
 import clsx from "clsx";
+import { useTranslation } from "@/utils/useLanguage";
 
 import {
   CheckIcon,
@@ -57,6 +58,7 @@ export function PresetDetail({ preset, relatedPresets, models, extensions }: Pre
 
   const [showToast, setShowToast] = React.useState(false);
   const [toastMessage, setToastMessage] = React.useState("");
+  const { t } = useTranslation();
 
   React.useEffect(() => {
     if (showCopied) {
@@ -77,8 +79,13 @@ export function PresetDetail({ preset, relatedPresets, models, extensions }: Pre
   const handleAddToRaycast = React.useCallback(() => addToRaycast(router, preset), [router, preset]);
 
   const handleCopyInstructions = () => {
-    copy(instructions);
+    copy(preset.instructions);
     setShowCopied(true);
+    setToastMessage(t("presets.copiedToClipboard"));
+    setShowToast(true);
+    setTimeout(() => {
+      setShowCopied(false);
+    }, 2000);
   };
 
   const handleDownload = React.useCallback(() => {
@@ -87,12 +94,12 @@ export function PresetDetail({ preset, relatedPresets, models, extensions }: Pre
 
   const handleCopyData = React.useCallback(() => {
     copyData(preset);
-    setToastMessage("Copied to clipboard");
+    setToastMessage(t("presets.copiedToClipboard"));
     setShowToast(true);
   }, [preset]);
 
   const handleCopyUrl = React.useCallback(async () => {
-    setToastMessage("Copying URL to clipboard...");
+    setToastMessage(t("presets.copyingURL"));
     setShowToast(true);
 
     const url = makeUrl(preset);
@@ -109,8 +116,8 @@ export function PresetDetail({ preset, relatedPresets, models, extensions }: Pre
     }
 
     copy(urlToCopy);
+    setToastMessage(t("presets.urlCopied"));
     setShowToast(true);
-    setToastMessage("Copied URL to clipboard!");
   }, [preset]);
 
   React.useEffect(() => {
@@ -183,7 +190,7 @@ export function PresetDetail({ preset, relatedPresets, models, extensions }: Pre
       <NavigationActions>
         <div className="flex gap-2 sm:hidden">
           <Button variant="primary" onClick={() => handleCopyUrl()}>
-            <LinkIcon /> Copy URL to Share
+            <LinkIcon /> {t("presets.copyURLToShare")}
           </Button>
         </div>
         <div className="sm:flex gap-2 hidden ">
@@ -191,7 +198,7 @@ export function PresetDetail({ preset, relatedPresets, models, extensions }: Pre
           <InfoDialog />
           <ButtonGroup>
             <Button variant="primary" onClick={() => handleAddToRaycast()}>
-              <PlusCircleIcon /> Add to Raycast
+              <PlusCircleIcon /> {t("presets.addToRaycast")}
             </Button>
 
             <DropdownMenu open={actionsOpen} onOpenChange={setActionsOpen}>
@@ -202,14 +209,14 @@ export function PresetDetail({ preset, relatedPresets, models, extensions }: Pre
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem onSelect={() => handleDownload()}>
-                  <DownloadIcon /> Download JSON
+                  <DownloadIcon /> {t("presets.downloadJSON")}
                   <span className="inline-flex gap-1 items-center ml-auto pl-2">
                     <Kbd>⌘</Kbd>
                     <Kbd>D</Kbd>
                   </span>
                 </DropdownMenuItem>
                 <DropdownMenuItem onSelect={() => handleCopyData()}>
-                  <CopyClipboardIcon /> Copy JSON{" "}
+                  <CopyClipboardIcon /> {t("presets.copyJSON")}{" "}
                   <span className="inline-flex gap-1 items-center ml-auto  pl-2">
                     <Kbd>⌘</Kbd>
                     <Kbd>⌥</Kbd>
@@ -217,7 +224,7 @@ export function PresetDetail({ preset, relatedPresets, models, extensions }: Pre
                   </span>
                 </DropdownMenuItem>
                 <DropdownMenuItem onSelect={() => handleCopyUrl()}>
-                  <LinkIcon /> Copy URL to Share{" "}
+                  <LinkIcon /> {t("presets.copyURLToShare")}{" "}
                   <span className="inline-flex gap-1 items-center ml-auto pl-2">
                     <Kbd>⌘</Kbd>
                     <Kbd>⇧</Kbd>
@@ -239,7 +246,7 @@ export function PresetDetail({ preset, relatedPresets, models, extensions }: Pre
               {name}{" "}
               {author ? (
                 <span className={styles.author}>
-                  by{" "}
+                  {t("presets.by")}{" "}
                   {author.link ? (
                     <a href={author.link} target="_blank" rel="noopener noreferrer">
                       {author.name}
@@ -297,7 +304,7 @@ export function PresetDetail({ preset, relatedPresets, models, extensions }: Pre
                         <span>Advanced AI</span>
                       </span>
                     </TooltipTrigger>
-                    <TooltipContent>Requires Advanced AI add-on to Raycast Pro</TooltipContent>
+                    <TooltipContent>{t("presets.models.advancedAITooltip")}</TooltipContent>
                   </Tooltip>
                 )}
               </div>
@@ -336,7 +343,7 @@ export function PresetDetail({ preset, relatedPresets, models, extensions }: Pre
                   const icon = extension?.icons.dark || extension?.icons.light;
                   return (
                     <div key={tool.id} className={styles.metaItem}>
-                      <h3 className={styles.compactTitle}>AI Extension</h3>
+                      <h3 className={styles.compactTitle}>{t("presets.extensions")}</h3>
                       <div className={styles.metaContent}>
                         {icon ? (
                           <img src={icon} alt={extension?.title} className={styles.metaIcon} width={16} height={16} />

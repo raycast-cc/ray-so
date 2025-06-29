@@ -18,6 +18,7 @@ import { InfoDialog } from "../components/InfoDialog";
 import { AiModel } from "@/api/ai";
 import { Extension } from "@/api/store";
 import { LanguageSelector } from "@/components/language-selector";
+import { useTranslation } from "@/utils/useLanguage";
 
 type Props = {
   models: AiModel[];
@@ -27,6 +28,7 @@ type Props = {
 export default function Presets({ models, extensions }: Props) {
   const [enableViewObserver, setEnableViewObserver] = React.useState(false);
   useSectionInViewObserver({ headerHeight: 50, enabled: enableViewObserver });
+  const { t } = useTranslation();
 
   const [showAdvancedModels, setShowAdvancedModels] = React.useState(true);
   const [checkedExtensions, setCheckedExtensions] = React.useState<string[]>([]);
@@ -80,7 +82,7 @@ export default function Presets({ models, extensions }: Props) {
       <NavigationActions>
         <div className="flex gap-2 sm:hidden">
           <Button variant="primary" disabled>
-            <LinkIcon /> Copy URL to Share
+            <LinkIcon /> {t("presets.copyURLToShare")}
           </Button>
         </div>
 
@@ -89,7 +91,7 @@ export default function Presets({ models, extensions }: Props) {
           <InfoDialog />
           <ButtonGroup>
             <Button variant="primary" disabled>
-              <PlusCircleIcon /> Add to Raycast
+              <PlusCircleIcon /> {t("presets.addToRaycast")}
             </Button>
 
             <Button variant="primary" disabled aria-label="Export options">
@@ -104,7 +106,7 @@ export default function Presets({ models, extensions }: Props) {
             <ScrollArea>
               <div className={styles.sidebarContent}>
                 <div className={styles.sidebarNav}>
-                  <p className={styles.sidebarTitle}>Categories</p>
+                  <p className={styles.sidebarTitle}>{t("presets.categories")}</p>
 
                   {categories.map((category) => (
                     <NavItem
@@ -117,17 +119,17 @@ export default function Presets({ models, extensions }: Props) {
                 <span className={styles.sidebarNavDivider}></span>
                 <div className="flex flex-col gap-4">
                   <div className="flex items-center gap-2">
-                    <p className="text-[13px] font-medium text-gray-11">Models</p>
+                    <p className="text-[13px] font-medium text-gray-11">{t("presets.models")}</p>
                     <Tooltip>
                       <TooltipTrigger>
                         <Info01Icon className="text-gray-11" />
                       </TooltipTrigger>
-                      <TooltipContent>Advanced AI requires the Advanced AI add-on to Raycast Pro</TooltipContent>
+                      <TooltipContent>{t("presets.models.advancedAITooltip")}</TooltipContent>
                     </Tooltip>
                   </div>
                   <div className={styles.filter}>
                     <span className={styles.label}>
-                      <label htmlFor="advancedModels">Show Advanced AI</label>
+                      <label htmlFor="advancedModels">{t("presets.models.advancedAI")}</label>
                     </span>
 
                     <Switch
@@ -141,12 +143,12 @@ export default function Presets({ models, extensions }: Props) {
                 <span className={styles.sidebarNavDivider}></span>
                 <div className="flex flex-col gap-4">
                   <div className="flex items-center gap-2">
-                    <p className="text-[13px] font-medium text-gray-11">AI Extensions</p>
+                    <p className="text-[13px] font-medium text-gray-11">{t("presets.extensions")}</p>
                     <Tooltip>
                       <TooltipTrigger>
                         <Info01Icon className="text-gray-11" />
                       </TooltipTrigger>
-                      <TooltipContent>AI Extensions provide additional functionality to AI models</TooltipContent>
+                      <TooltipContent>{t("presets.extensions.tooltip")}</TooltipContent>
                     </Tooltip>
                   </div>
 

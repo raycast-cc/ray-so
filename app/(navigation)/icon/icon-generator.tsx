@@ -58,6 +58,7 @@ import { InfoDialog } from "./components/InfoDialog";
 import { LanguageSelector } from "@/components/language-selector";
 import { Kbd, Kbds } from "@/components/kbd";
 import { ScrollArea } from "@/components/scroll-area";
+import { useTranslation } from "@/utils/useLanguage";
 
 const scales = [0.25, 0.5, 1, 2];
 
@@ -279,6 +280,7 @@ const ColorInput = ({ value, name, recentColors, onChange, disabled = false }: C
 let infoMessageTimeout: NodeJS.Timeout | undefined;
 
 export const IconGenerator = () => {
+  const { t } = useTranslation();
   const randomPresetIndex = randomNumberBetween(0, presets.length - 1);
 
   const [urlParsed, setUrlParsed] = useState<boolean>(false);
@@ -503,7 +505,7 @@ export const IconGenerator = () => {
       try {
         const customSvg = await getPastedSvgFile(event.clipboardData?.items || []);
         if (customSvg) {
-          showInfoMessage("Image pasted to canvas", true);
+          showInfoMessage(t("icon.imagePasted"), true);
           pushNewSettings({
             customSvg,
             icon: undefined,
@@ -520,7 +522,7 @@ export const IconGenerator = () => {
       try {
         const customSvg = await getPastedSvgFile(event.dataTransfer?.items || []);
         if (customSvg) {
-          showInfoMessage("Image pasted to canvas", true);
+          showInfoMessage(t("icon.imagePasted"), true);
           pushNewSettings({
             customSvg,
             icon: undefined,
@@ -769,17 +771,17 @@ export const IconGenerator = () => {
   }
 
   const fillTypeOptions = [
-    { value: "Linear", label: "Linear" },
-    { value: "Radial", label: "Radial" },
-    { value: "Solid", label: "Solid" },
+    { value: "Linear", label: t("icon.fillType.linear") },
+    { value: "Radial", label: t("icon.fillType.radial") },
+    { value: "Solid", label: t("icon.fillType.solid") },
   ];
 
   const backgroundPositionOptions = [
-    { value: "50%,50%", label: "Center" },
-    { value: "50%,0%", label: "Top" },
-    { value: "100%,50%", label: "Right" },
-    { value: "50%,100%", label: "Bottom" },
-    { value: "0%,50%", label: "Left" },
+    { value: "50%,50%", label: t("icon.position.center") },
+    { value: "50%,0%", label: t("icon.position.top") },
+    { value: "100%,50%", label: t("icon.position.right") },
+    { value: "50%,100%", label: t("icon.position.bottom") },
+    { value: "0%,50%", label: t("icon.position.left") },
   ];
 
   const onShare = async () => {
@@ -836,7 +838,7 @@ export const IconGenerator = () => {
             onClick={undo}
           >
             <UndoIcon />
-            <span className={styles.label}>Undo</span>
+            <span className={styles.label}>{t("icon.undo")}</span>
           </Button>
 
           <Button
@@ -936,7 +938,7 @@ export const IconGenerator = () => {
             <div className={styles.searchWrapper}>
               <Input
                 type="text"
-                placeholder="Search icons…"
+                placeholder={t("icon.searchPlaceholder")}
                 defaultValue={searchTerm}
                 ref={searchRef}
                 size="large"
@@ -947,18 +949,18 @@ export const IconGenerator = () => {
                   <MagnifyingGlassIcon className="!w-4 !h-4" />
                 </InputSlot>
               </Input>
-              <Button iconOnly size="large" onClick={onRandomIconClick} title="Random icon">
+              <Button iconOnly size="large" onClick={onRandomIconClick} title={t("icon.randomIcon")}>
                 <ShuffleIcon className="!w-4 !h-4" />
               </Button>
               <Button
                 iconOnly
                 size="large"
                 onClick={() => setShowTextIconInput(!showTextIconInput)}
-                title="Create text icon"
+                title={t("icon.createTextIcon")}
               >
                 <span className="text-sm">Aa</span>
               </Button>
-              <Button iconOnly size="large" title="Upload your own SVG" className="relative">
+              <Button iconOnly size="large" title={t("icon.uploadSvg")} className="relative">
                 <input
                   type="file"
                   className={styles.uploadCustomIconFileInput}
@@ -971,11 +973,11 @@ export const IconGenerator = () => {
 
             {showTextIconInput && (
               <>
-                <h4>Text</h4>
+                <h4>{t("icon.text")}</h4>
                 <div className={styles.searchWrapper}>
                   <Input
                     type="text"
-                    placeholder="Enter text (e.g., AA, BN, C)"
+                    placeholder={t("icon.textPlaceholder")}
                     onChange={(e) => onSelectCustomIcon(e)}
                     maxLength={2}
                     size={"large"}
@@ -991,12 +993,12 @@ export const IconGenerator = () => {
                 <BrushIcon className={styles.emptyIconsListIcon} />
                 We couldn’t find an icon for that
                 <Link href={`mailto:${FEEDBACK_EMAIL}?subject=Request%20Icon`}>
-                  Request icon <ArrowRightIcon />
+                  {t("icon.requestIcon")} <ArrowRightIcon />
                 </Link>
               </div>
             ) : (
               <>
-                <h4>{searchTerm ? "Results" : "All Icons"}</h4>
+                <h4>{searchTerm ? t("icon.results") : t("icon.allIcons")}</h4>
                 <ScrollArea className={styles.scrollWrapper}>
                   <div className={styles.iconsWrapper}>
                     {filteredIcons.map((icon) => {
@@ -1089,7 +1091,7 @@ export const IconGenerator = () => {
               <div className={styles.inner}>
                 <details className={styles.section} open>
                   <summary>
-                    Presets
+                    {t("icon.presets")}
                     <ChevronUpIcon className={styles.closed} />
                     <ChevronDownIcon className={styles.opened} />
                   </summary>
@@ -1118,13 +1120,13 @@ export const IconGenerator = () => {
                 <form onChange={onFormChange} ref={formRef} style={{ width: "100%" }}>
                   <details className={styles.section} open>
                     <summary>
-                      Fill Styles
+                      {t("icon.fillStyles")}
                       <ChevronUpIcon className={styles.closed} />
                       <ChevronDownIcon className={styles.opened} />
                     </summary>
                     <div>
                       <label className={styles.formItem}>
-                        <span>Fill Type</span>
+                        <span>{t("icon.fillType")}</span>
                         <Select
                           name="backgroundFillType"
                           value={settings.backgroundFillType}
@@ -1143,7 +1145,9 @@ export const IconGenerator = () => {
                         </Select>
                       </label>
                       <label className={styles.formItem}>
-                        <span>{settings.backgroundFillType === "Solid" ? "Color" : "Primary color"}</span>
+                        <span>
+                          {settings.backgroundFillType === "Solid" ? t("icon.color") : t("icon.primaryColor")}
+                        </span>
                         <ColorInput
                           value={settings.backgroundStartColor}
                           name="backgroundStartColor"
@@ -1155,7 +1159,7 @@ export const IconGenerator = () => {
                         <label
                           className={cn(styles.formItem, settings.backgroundFillType === "Solid" && styles.disabled)}
                         >
-                          <span>Secondary color</span>
+                          <span>{t("icon.secondaryColor")}</span>
                           <ColorInput
                             value={settings.backgroundEndColor}
                             name="backgroundEndColor"
@@ -1167,7 +1171,7 @@ export const IconGenerator = () => {
                       {settings.backgroundFillType === "Radial" ? (
                         <>
                           <label className={styles.formItem}>
-                            <span>Position</span>
+                            <span>{t("icon.position")}</span>
                             <Select
                               name="backgroundPosition"
                               value={settings.backgroundPosition}
@@ -1186,7 +1190,7 @@ export const IconGenerator = () => {
                             </Select>
                           </label>
                           <label className={styles.formItem}>
-                            <span>Spread</span>
+                            <span>{t("icon.spread")}</span>
                             <Input
                               name="backgroundSpread"
                               type="number"
@@ -1202,7 +1206,7 @@ export const IconGenerator = () => {
                         </>
                       ) : settings.backgroundFillType === "Linear" ? (
                         <label className={styles.formItem}>
-                          <span>Angle</span>
+                          <span>{t("icon.angle")}</span>
                           <Input
                             name="backgroundAngle"
                             type="number"
@@ -1221,13 +1225,13 @@ export const IconGenerator = () => {
                   </details>
                   <details className={styles.section}>
                     <summary>
-                      Background
+                      {t("icon.background")}
                       <ChevronUpIcon className={styles.closed} />
                       <ChevronDownIcon className={styles.opened} />
                     </summary>
                     <div>
                       <label className={cn(styles.formItem)}>
-                        <span>Radial glare</span>
+                        <span>{t("icon.radialGlare")}</span>
                         <Switch
                           name="backgroundRadialGlare"
                           checked={settings.backgroundRadialGlare}
@@ -1241,7 +1245,7 @@ export const IconGenerator = () => {
                       </label>
 
                       <label className={cn(styles.formItem)}>
-                        <span>Noise texture</span>
+                        <span>{t("icon.noiseTexture")}</span>
                         <Switch
                           name="backgroundNoiseTexture"
                           checked={settings.backgroundNoiseTexture}
@@ -1268,7 +1272,7 @@ export const IconGenerator = () => {
                         </Input>
                       </label>
                       <label className={cn(styles.formItem)}>
-                        <span>Radius</span>
+                        <span>{t("icon.radius")}</span>
                         <Input
                           name="backgroundRadius"
                           type="number"
@@ -1282,7 +1286,7 @@ export const IconGenerator = () => {
                         </Input>
                       </label>
                       <label className={styles.formItem}>
-                        <span>Stroke size</span>
+                        <span>{t("icon.strokeSize")}</span>
                         <Input
                           name="backgroundStrokeSize"
                           type="number"
@@ -1294,7 +1298,7 @@ export const IconGenerator = () => {
                         </Input>
                       </label>
                       <label className={cn(styles.formItem, settings.backgroundStrokeSize == 0 && styles.disabled)}>
-                        <span>Stroke color</span>
+                        <span>{t("icon.strokeColor")}</span>
                         <ColorInput
                           value={settings.backgroundStrokeColor}
                           name="backgroundStrokeColor"
@@ -1303,7 +1307,7 @@ export const IconGenerator = () => {
                         />
                       </label>
                       <label className={cn(styles.formItem, settings.backgroundStrokeSize == 0 && styles.disabled)}>
-                        <span>Stroke opacity</span>
+                        <span>{t("icon.strokeOpacity")}</span>
                         <Input
                           name="backgroundStrokeOpacity"
                           type="number"
@@ -1319,14 +1323,14 @@ export const IconGenerator = () => {
 
                   <details className={styles.section}>
                     <summary>
-                      Icon
+                      {t("icon.icon")}
                       <ChevronUpIcon className={styles.closed} />
                       <ChevronDownIcon className={styles.opened} />
                     </summary>
                     <div>
                       {!customSvgIsPng && (
                         <label className={styles.formItem}>
-                          <span>Color</span>
+                          <span>{t("icon.color")}</span>
                           <ColorInput
                             value={settings.iconColor}
                             name="iconColor"
@@ -1336,7 +1340,7 @@ export const IconGenerator = () => {
                         </label>
                       )}
                       <label className={styles.formItem}>
-                        <span>Size</span>
+                        <span>{t("icon.size")}</span>
                         <div className={cn(styles.inputWrapper, styles.inputWithUnit)}>
                           <Input
                             name="iconSize"
@@ -1351,7 +1355,7 @@ export const IconGenerator = () => {
                         </div>
                       </label>
                       <label className={styles.formItem}>
-                        <span>X Offset</span>
+                        <span>{t("icon.xOffset")}</span>
                         <div className={cn(styles.inputWrapper, styles.inputWithUnit)}>
                           <Input
                             name="iconOffsetX"
@@ -1365,7 +1369,7 @@ export const IconGenerator = () => {
                         </div>
                       </label>
                       <label className={styles.formItem}>
-                        <span>Y Offset</span>
+                        <span>{t("icon.yOffset")}</span>
                         <div className="flex flex-col">
                           <Input
                             name="iconOffsetY"
@@ -1419,7 +1423,7 @@ export const IconGenerator = () => {
             <>
               <div className={styles.separator} />
               <button className={styles.undoLastAction} onClick={undo}>
-                Undo
+                {t("icon.undo")}
               </button>
             </>
           ) : null}

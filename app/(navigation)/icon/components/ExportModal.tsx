@@ -12,6 +12,7 @@ import { Button } from "@/components/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/dialog";
 import { Input, InputSlot } from "@/components/input";
 import download from "../../(code)/util/download";
+import { useTranslation } from "@/utils/useLanguage";
 
 type ExportFormat = "PNG" | "SVG";
 
@@ -57,6 +58,7 @@ type ExportModalProps = {
 };
 
 function ExportModal({ open, onOpenChange, onStartExport, fileName, svgRef }: ExportModalProps) {
+  const { t } = useTranslation();
   const [exportOptions, setExportOptions] = useState<ExportOption[]>([
     {
       fileName,
@@ -121,7 +123,7 @@ function ExportModal({ open, onOpenChange, onStartExport, fileName, svgRef }: Ex
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent size="medium">
-        <DialogTitle>Export Icons</DialogTitle>
+        <DialogTitle>{t("icon.exportIcons")}</DialogTitle>
         {exportOptions.map((option, index) => (
           <div className={styles.exportOption} key={index}>
             <div className={styles.exportOptionFileName}>
@@ -171,10 +173,10 @@ function ExportModal({ open, onOpenChange, onStartExport, fileName, svgRef }: Ex
           </div>
         ))}
         <Button onClick={onAddExportOption}>
-          <PlusIcon /> Add new export
+          <PlusIcon /> {t("icon.addNewExport")}
         </Button>
         <Button variant="primary" onClick={onExport}>
-          Export Icon
+          {t("icon.exportIcon")}
         </Button>
       </DialogContent>
     </Dialog>

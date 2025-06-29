@@ -18,8 +18,10 @@ import {
 } from "@/components/select";
 import { SelectItemText } from "@radix-ui/react-select";
 import { ChevronUpIcon } from "@raycast/icons";
+import { useTranslation } from "@/utils/useLanguage";
 
 const ThemeControl: React.FC = () => {
+  const { t } = useTranslation();
   const [currentTheme, atomSetTheme] = useAtom(themeAtom);
   const [padding, setPadding] = useAtom(paddingAtom);
   const [unlockedThemes, setUnlockedThemes] = useAtom(unlockedThemesAtom);
@@ -67,7 +69,7 @@ const ThemeControl: React.FC = () => {
   );
 
   return (
-    <ControlContainer title="Theme">
+    <ControlContainer title={t("code.controls.theme")}>
       <Select
         value={`${currentTheme.name}`}
         onValueChange={(value) => {

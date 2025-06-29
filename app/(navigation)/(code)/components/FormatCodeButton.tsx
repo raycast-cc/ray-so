@@ -24,7 +24,7 @@ const FormatButton: React.FC = () => {
   const handleFormatCode = () => {
     const isSupportedLanguage = formatterSupportedLanguages.includes(selectedLanguage?.name || "");
     if (!isSupportedLanguage) {
-      return toast.error("Formatting is not supported for this language");
+      return toast.error(t("code.format.notSupported"));
     }
     if (!code || !selectedLanguage) {
       return;
@@ -38,12 +38,12 @@ const FormatButton: React.FC = () => {
         setSelectedLanguage(language);
       }),
       {
-        loading: "Formatting code...",
-        success: "Formatted code!",
+        loading: t("code.format.loading"),
+        success: t("code.format.success"),
         error: (error) => {
           const errorMessage = error.message;
           return {
-            message: "Code formatting failed",
+            message: t("code.format.failed"),
             description: () => (
               <pre className="w-full overflow-auto text-xs scrollbar-hide bg-gray-a3 p-2.5 rounded max-w-[300px]">
                 <code className="w-full">{errorMessage}</code>

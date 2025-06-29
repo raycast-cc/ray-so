@@ -52,10 +52,10 @@ const ExportButton: React.FC = () => {
 
   const savePng = async () => {
     if (!frameContext?.current) {
-      throw new Error("Couldn't find a frame to export");
+      throw new Error(t("code.export.frameNotFound"));
     }
 
-    setFlashMessage({ icon: <ImageIcon />, message: "Exporting PNG" });
+    setFlashMessage({ icon: <ImageIcon />, message: t("code.export.exportingPNG") });
 
     const dataUrl = await toPng(frameContext.current, {
       pixelRatio: exportSize,
@@ -67,9 +67,9 @@ const ExportButton: React.FC = () => {
   };
 
   const copyPng = async () => {
-    setFlashMessage({ icon: <ClipboardIcon />, message: "Copying PNG" });
+    setFlashMessage({ icon: <ClipboardIcon />, message: t("code.export.copyingPNG") });
     if (!frameContext?.current) {
-      throw new Error("Couldn't find a frame to export");
+      throw new Error(t("code.export.frameNotFound"));
     }
 
     const clipboardItem = new ClipboardItem({
@@ -77,7 +77,7 @@ const ExportButton: React.FC = () => {
         pixelRatio: exportSize,
       }).then((blob) => {
         if (!blob) {
-          throw new Error("expected toBlob to return a blob");
+          throw new Error(t("code.export.blobError"));
         }
         return blob;
       }),
@@ -85,15 +85,15 @@ const ExportButton: React.FC = () => {
 
     await navigator.clipboard.write([clipboardItem]);
 
-    setFlashMessage({ icon: <ClipboardIcon />, message: "PNG Copied to clipboard!", timeout: 2000 });
+    setFlashMessage({ icon: <ClipboardIcon />, message: t("code.export.pngCopied"), timeout: 2000 });
   };
 
   const saveSvg = async () => {
     if (!frameContext?.current) {
-      throw new Error("Couldn't find a frame to export");
+      throw new Error(t("code.export.frameNotFound"));
     }
 
-    setFlashMessage({ icon: <ImageIcon />, message: "Exporting SVG" });
+    setFlashMessage({ icon: <ImageIcon />, message: t("code.export.exportingSVG") });
 
     const dataUrl = await toSvg(frameContext.current);
     download(dataUrl, `${fileName}.svg`);
@@ -128,7 +128,7 @@ const ExportButton: React.FC = () => {
   };
 
   const copyUrl = async () => {
-    setFlashMessage({ icon: <ClipboardIcon />, message: "Copying URL" });
+    setFlashMessage({ icon: <ClipboardIcon />, message: t("code.export.copyingURL") });
 
     const url = window.location.toString();
     let urlToCopy = url;
@@ -142,7 +142,7 @@ const ExportButton: React.FC = () => {
 
     navigator.clipboard.writeText(urlToCopy);
 
-    setFlashMessage({ icon: <ClipboardIcon />, message: "URL Copied to clipboard!", timeout: 2000 });
+    setFlashMessage({ icon: <ClipboardIcon />, message: t("code.export.urlCopied"), timeout: 2000 });
   };
 
   useHotkeys("ctrl+k,cmd+k", (event) => {
@@ -171,13 +171,13 @@ const ExportButton: React.FC = () => {
 
   return (
     <ButtonGroup>
-      <Button onClick={handleExportClick} variant="primary" aria-label="Export as PNG">
+      <Button onClick={handleExportClick} variant="primary" aria-label={t("code.aria.exportPNG")}>
         <DownloadIcon className="w-4 h-4" />
-        Export <span className="hidden md:inline-block">Image</span>
+        {t("code.button.export")} <span className="hidden md:inline-block">{t("code.button.image")}</span>
       </Button>
       <DropdownMenu open={dropdownOpen} onOpenChange={(open) => setDropdownOpen(open)}>
         <DropdownMenuTrigger asChild>
-          <Button variant="primary" aria-label="See other export options">
+          <Button variant="primary" aria-label={t("code.aria.exportOptions")}>
             <ChevronDownIcon className="w-4 h-4" />
           </Button>
         </DropdownMenuTrigger>

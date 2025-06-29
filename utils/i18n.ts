@@ -71,6 +71,38 @@ export const translations = {
     "code.about.contribute": "The project is Open Source and available on GitHub.",
     "code.about.feedback": "If you have any questions or feedback, please write to us on 𝕏 or send us an email.",
 
+    // Format Code Messages
+    "code.format.notSupported": "Formatting is not supported for this language",
+    "code.format.loading": "Formatting code...",
+    "code.format.success": "Formatted code!",
+    "code.format.failed": "Code formatting failed",
+
+    // Export Messages
+    "code.export.exportingPNG": "Exporting PNG",
+    "code.export.copyingPNG": "Copying PNG",
+    "code.export.pngCopied": "PNG Copied to clipboard!",
+    "code.export.exportingSVG": "Exporting SVG",
+    "code.export.copyingURL": "Copying URL",
+    "code.export.urlCopied": "URL Copied to clipboard!",
+    "code.export.frameNotFound": "Couldn't find a frame to export",
+    "code.export.blobError": "Expected toBlob to return a blob",
+
+    // Control Labels
+    "code.controls.theme": "Theme",
+    "code.controls.padding": "Padding",
+    "code.controls.lineNumbers": "Line numbers",
+    "code.controls.frameAdjust": "Frame Adjust",
+    "code.controls.darkMode": "Dark mode",
+    "code.controls.background": "Background",
+
+    // Accessibility Labels
+    "code.aria.exportPNG": "Export as PNG",
+    "code.aria.exportOptions": "See other export options",
+
+    // Button Labels
+    "code.button.export": "Export",
+    "code.button.image": "Image",
+
     // Export
     "export.savePNG": "Save PNG",
     "export.saveSVG": "Save SVG",
@@ -151,7 +183,6 @@ export const translations = {
     "code.saveSVG": "保存 SVG",
     "code.copyImage": "复制图片",
     "code.copyURL": "复制链接",
-    "export.copyURLToShare": "复制分享链接",
     "code.openShortcuts": "打开快捷键",
     "code.about.title": "关于",
     "code.about.desc1": "Raycast 代码图片是一个创建美观代码截图的工具。",
@@ -161,11 +192,44 @@ export const translations = {
     "code.about.contribute": "该项目是开源的，可以在 GitHub 上找到。",
     "code.about.feedback": "如果您有任何问题或反馈，请在 𝕏 上联系我们或发送电子邮件。",
 
+    // Format Code Messages
+    "code.format.notSupported": "此语言不支持格式化",
+    "code.format.loading": "正在格式化代码...",
+    "code.format.success": "代码格式化成功！",
+    "code.format.failed": "代码格式化失败",
+
+    // Export Messages
+    "code.export.exportingPNG": "正在导出 PNG",
+    "code.export.copyingPNG": "正在复制 PNG",
+    "code.export.pngCopied": "PNG 已复制到剪贴板！",
+    "code.export.exportingSVG": "正在导出 SVG",
+    "code.export.copyingURL": "正在复制链接",
+    "code.export.urlCopied": "链接已复制到剪贴板！",
+    "code.export.frameNotFound": "未找到可导出的框架",
+    "code.export.blobError": "生成图片数据失败",
+
+    // Control Labels
+    "code.controls.theme": "主题",
+    "code.controls.padding": "内边距",
+    "code.controls.lineNumbers": "行号",
+    "code.controls.frameAdjust": "框架调整",
+    "code.controls.darkMode": "深色模式",
+    "code.controls.background": "背景",
+
+    // Accessibility Labels
+    "code.aria.exportPNG": "导出为 PNG",
+    "code.aria.exportOptions": "查看其他导出选项",
+
+    // Button Labels
+    "code.button.export": "导出",
+    "code.button.image": "图片",
+
     // Export
     "export.savePNG": "保存 PNG",
     "export.saveSVG": "保存 SVG",
     "export.copyImage": "复制图片",
     "export.copyURL": "复制链接",
+    "export.copyURLToShare": "复制分享链接",
     "export.downloadJSON": "下载 JSON",
     "export.copyJSON": "复制 JSON",
     "export.addToRaycast": "添加到 Raycast",

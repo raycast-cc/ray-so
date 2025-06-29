@@ -6,7 +6,7 @@ import { Language, TranslationKey, getTranslation, getSavedLanguage, saveLanguag
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: (key: TranslationKey) => string;
+  t: (key: TranslationKey, variables?: Record<string, string | number>) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -23,8 +23,8 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     saveLanguage(lang);
   };
 
-  const t = (key: TranslationKey): string => {
-    return getTranslation(key, language);
+  const t = (key: TranslationKey, variables?: Record<string, string | number>): string => {
+    return getTranslation(key, language, variables);
   };
 
   return <LanguageContext.Provider value={{ language, setLanguage, t }}>{children}</LanguageContext.Provider>;

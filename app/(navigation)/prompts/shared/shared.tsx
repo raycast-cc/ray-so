@@ -64,7 +64,10 @@ export function Shared({ prompts, extensions }: { prompts: Prompt[]; extensions:
 
   const categories = [
     {
-      name: `${prompts.length} ${prompts.length > 1 ? "prompts" : "prompt"} shared with you`,
+      name: t("prompts.sharedWithYou", {
+        count: prompts.length,
+        type: prompts.length > 1 ? t("prompts.sharedMultiple") : t("prompts.sharedSingle"),
+      }),
       isTemplate: true,
       isShared: true,
       prompts: prompts,

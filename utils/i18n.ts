@@ -44,6 +44,39 @@ export const translations = {
     "common.loading": "Loading",
     "common.error": "Error",
 
+    // Prompts
+    "prompts.about.title": "About",
+    "prompts.about.desc1": "Prompt Explorer is a tool to easily browse, share, and add prompts to Raycast.",
+    "prompts.about.desc2":
+      "Select the prompts by clicking on them. To select multiple, hold ⌘ or select them with your mouse.",
+    "prompts.about.desc3":
+      'Then, click the "Add to Raycast" button to import these prompts as AI Commands. You can also download the prompts as a JSON file, or copy the URL to share with others.',
+    "prompts.about.contribute": "The project is Open Source and available on GitHub.",
+    "prompts.about.feedback": "If you have any questions or feedback, please write to us on 𝕏 or send us an email.",
+    "prompts.shortcuts": "Shortcuts",
+    "prompts.shortcuts.addToRaycast": "Add to Raycast",
+    "prompts.shortcuts.downloadJSON": "Download JSON",
+    "prompts.shortcuts.copyJSON": "Copy JSON",
+    "prompts.shortcuts.toggleExportMenu": "Toggle export menu",
+    "prompts.shortcuts.copyURL": "Copy URL",
+    "prompts.shortcuts.openShortcuts": "Open shortcuts",
+    "prompts.categories": "Categories",
+    "prompts.selectedCount": "{count} selected",
+    "prompts.selectedCountSingle": "{count} Prompt selected",
+    "prompts.selectedCountMultiple": "{count} Prompts selected",
+    "prompts.clearSelected": "Clear selected",
+    "prompts.selectPrompt": "Select Prompt",
+    "prompts.deselectPrompt": "Deselect Prompt",
+    "prompts.copyPromptText": "Copy Prompt Text",
+    "prompts.includesAIExtensions": "Includes AI Extensions",
+    "prompts.sharedWithYou": "{count} {type} shared with you",
+    "prompts.sharedSingle": "prompt",
+    "prompts.sharedMultiple": "prompts",
+    "prompts.copiedToClipboard": "Copied to clipboard",
+    "prompts.copyingURL": "Copying URL to clipboard...",
+    "prompts.urlCopied": "Copied URL to clipboard!",
+    "prompts.by": "by",
+
     // Presets
     "presets.about.title": "About",
     "presets.about.desc1": "Preset Explorer is a tool to easily browse, share, and add presets to Raycast.",
@@ -267,6 +300,38 @@ export const translations = {
     "common.loading": "加载中",
     "common.error": "错误",
 
+    // Prompts
+    "prompts.about.title": "关于",
+    "prompts.about.desc1": "提示词探索器是一个轻松浏览、分享和添加提示词到 Raycast 的工具。",
+    "prompts.about.desc2": "点击选择提示词。按住 ⌘ 或用鼠标选择多个。",
+    "prompts.about.desc3":
+      '然后点击"添加到 Raycast"按钮将这些提示词作为 AI 命令导入。您也可以将提示词下载为 JSON 文件，或复制链接与他人分享。',
+    "prompts.about.contribute": "该项目是开源的，可以在 GitHub 上找到。",
+    "prompts.about.feedback": "如果您有任何问题或反馈，请在 𝕏 上联系我们或发送电子邮件。",
+    "prompts.shortcuts": "快捷键",
+    "prompts.shortcuts.addToRaycast": "添加到 Raycast",
+    "prompts.shortcuts.downloadJSON": "下载 JSON",
+    "prompts.shortcuts.copyJSON": "复制 JSON",
+    "prompts.shortcuts.toggleExportMenu": "切换导出菜单",
+    "prompts.shortcuts.copyURL": "复制链接",
+    "prompts.shortcuts.openShortcuts": "打开快捷键",
+    "prompts.categories": "分类",
+    "prompts.selectedCount": "已选择 {count} 个",
+    "prompts.selectedCountSingle": "已选择 {count} 个提示词",
+    "prompts.selectedCountMultiple": "已选择 {count} 个提示词",
+    "prompts.clearSelected": "清除选择",
+    "prompts.selectPrompt": "选择提示词",
+    "prompts.deselectPrompt": "取消选择提示词",
+    "prompts.copyPromptText": "复制提示词文本",
+    "prompts.includesAIExtensions": "包含 AI 扩展",
+    "prompts.sharedWithYou": "与您分享的 {count} 个{type}",
+    "prompts.sharedSingle": "提示词",
+    "prompts.sharedMultiple": "提示词",
+    "prompts.copiedToClipboard": "已复制到剪贴板",
+    "prompts.copyingURL": "正在复制链接到剪贴板...",
+    "prompts.urlCopied": "链接已复制到剪贴板！",
+    "prompts.by": "由",
+
     // Presets
     "presets.about.title": "关于",
     "presets.about.desc1": "预设探索器是一个轻松浏览、分享和添加预设到 Raycast 的工具。",
@@ -471,6 +536,18 @@ export function saveLanguage(lang: Language) {
   localStorage.setItem(STORAGE_KEY, lang);
 }
 
-export function getTranslation(key: TranslationKey, lang: Language): string {
-  return translations[lang][key] || translations.en[key] || key;
+export function getTranslation(
+  key: TranslationKey,
+  lang: Language,
+  variables?: Record<string, string | number>,
+): string {
+  let translation: string = translations[lang][key] || translations.en[key] || key;
+
+  if (variables) {
+    Object.entries(variables).forEach(([varKey, value]) => {
+      translation = translation.replace(new RegExp(`\\{${varKey}\\}`, "g"), String(value));
+    });
+  }
+
+  return translation;
 }

@@ -40,6 +40,7 @@ import { TooltipTrigger } from "@/components/tooltip";
 import { Extension } from "@/api/store";
 import { AIExtension } from "@/components/ai-extension";
 import { LanguageSelector } from "@/components/language-selector";
+import { useLanguage } from "@/utils/useLanguage";
 
 type Props = {
   models: AiModel[];
@@ -47,6 +48,7 @@ type Props = {
 };
 
 export function Prompts({ models, extensions }: Props) {
+  const { t } = useLanguage();
   const [enableViewObserver, setEnableViewObserver] = React.useState(false);
   useSectionInViewObserver({ headerHeight: 50, enabled: enableViewObserver });
 
@@ -102,12 +104,12 @@ export function Prompts({ models, extensions }: Props) {
 
   const handleCopyData = React.useCallback(() => {
     copyData(selectedPrompts);
-    setToastMessage("Copied to clipboard");
+    setToastMessage(t("prompts.copiedToClipboard"));
     setShowToast(true);
-  }, [selectedPrompts]);
+  }, [selectedPrompts, t]);
 
   const handleCopyUrl = React.useCallback(async () => {
-    setToastMessage("Copying URL to clipboard...");
+    setToastMessage(t("prompts.copyingURL"));
     setShowToast(true);
 
     const url = makeUrl(selectedPrompts);
@@ -123,14 +125,17 @@ export function Prompts({ models, extensions }: Props) {
 
     copy(urlToCopy);
     setShowToast(true);
-    setToastMessage("Copied URL to clipboard!");
-  }, [selectedPrompts]);
+    setToastMessage(t("prompts.urlCopied"));
+  }, [selectedPrompts, t]);
 
-  const handleCopyText = React.useCallback((prompt: Prompt) => {
-    copy(prompt.prompt);
-    setShowToast(true);
-    setToastMessage("Copied to clipboard");
-  }, []);
+  const handleCopyText = React.useCallback(
+    (prompt: Prompt) => {
+      copy(prompt.prompt);
+      setShowToast(true);
+      setToastMessage(t("prompts.copiedToClipboard"));
+    },
+    [t],
+  );
 
   const handleAddToRaycast = React.useCallback(() => addToRaycast(router, selectedPrompts), [router, selectedPrompts]);
 
@@ -198,7 +203,7 @@ export function Prompts({ models, extensions }: Props) {
       <NavigationActions>
         <div className="flex gap-2 sm:hidden">
           <Button variant="primary" disabled={selectedPrompts.length === 0} onClick={() => handleCopyUrl()}>
-            <LinkIcon /> Copy URL to Share
+            <LinkIcon /> {t("export.copyURLToShare")}
           </Button>
         </div>
         <div className="sm:flex gap-2 hidden">
@@ -206,7 +211,7 @@ export function Prompts({ models, extensions }: Props) {
           <InfoDialog />
           <ButtonGroup>
             <Button variant="primary" disabled={selectedPrompts.length === 0} onClick={() => handleAddToRaycast()}>
-              <PlusCircleIcon /> Add to Raycast
+              <PlusCircleIcon /> {t("export.addToRaycast")}
             </Button>
 
             <DropdownMenu open={actionsOpen} onOpenChange={setActionsOpen}>
@@ -217,14 +222,14 @@ export function Prompts({ models, extensions }: Props) {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem disabled={selectedPrompts.length === 0} onSelect={() => handleDownload()}>
-                  <DownloadIcon /> Download JSON
+                  <DownloadIcon /> {t("export.downloadJSON")}
                   <Kbds>
                     <Kbd>⌘</Kbd>
                     <Kbd>D</Kbd>
                   </Kbds>
                 </DropdownMenuItem>
                 <DropdownMenuItem disabled={selectedPrompts.length === 0} onSelect={() => handleCopyData()}>
-                  <CopyClipboardIcon /> Copy JSON{" "}
+                  <CopyClipboardIcon /> {t("export.copyJSON")}{" "}
                   <Kbds>
                     <Kbd>⌘</Kbd>
                     <Kbd>⌥</Kbd>
@@ -232,7 +237,7 @@ export function Prompts({ models, extensions }: Props) {
                   </Kbds>
                 </DropdownMenuItem>
                 <DropdownMenuItem disabled={selectedPrompts.length === 0} onSelect={() => handleCopyUrl()}>
-                  <LinkIcon /> Copy URL to Share{" "}
+                  <LinkIcon /> {t("export.copyURLToShare")}{" "}
                   <Kbds>
                     <Kbd>⌘</Kbd>
                     <Kbd>⇧</Kbd>
@@ -257,7 +262,7 @@ export function Prompts({ models, extensions }: Props) {
             <ScrollArea>
               <div className={styles.sidebarContent}>
                 <div className={styles.sidebarNav}>
-                  <p className={styles.sidebarTitle}>Categories</p>
+                  <p className={styles.sidebarTitle}>{t("prompts.categories")}</p>
 
                   {categories.map((category) => (
                     <NavItem key={category.slug} category={category} />
@@ -268,12 +273,17 @@ export function Prompts({ models, extensions }: Props) {
 
                 {selectedPrompts.length > 0 && (
                   <div>
-                    <p className={styles.sidebarTitle}>Add to Raycast</p>
+                    <p className={styles.sidebarTitle}>{t("export.addToRaycast")}</p>
 
                     <Collapsible.Root>
                       <Collapsible.Trigger asChild>
                         <button className={styles.summaryTrigger}>
-                          {selectedPrompts.length} {selectedPrompts.length > 1 ? "Prompts" : "Prompt"} selected
+                          {t(
+                            selectedPrompts.length > 1
+                              ? "prompts.selectedCountMultiple"
+                              : "prompts.selectedCountSingle",
+                            { count: selectedPrompts.length },
+                          )}
                           <ChevronDownIcon />
                         </button>
                       </Collapsible.Trigger>
@@ -299,10 +309,10 @@ export function Prompts({ models, extensions }: Props) {
 
                     <div className={styles.summaryControls}>
                       <Button onClick={handleAddToRaycast} variant="primary">
-                        Add to Raycast
+                        {t("export.addToRaycast")}
                       </Button>
 
-                      <Button onClick={() => setSelectedPrompts([])}>Clear selected</Button>
+                      <Button onClick={() => setSelectedPrompts([])}>{t("prompts.clearSelected")}</Button>
                     </div>
                   </div>
                 )}
@@ -417,7 +427,7 @@ export function Prompts({ models, extensions }: Props) {
                                       <TooltipTrigger>
                                         <StarsSquareIcon />
                                       </TooltipTrigger>
-                                      <TooltipContent>Includes AI Extensions</TooltipContent>
+                                      <TooltipContent>{t("prompts.includesAIExtensions")}</TooltipContent>
                                     </Tooltip>
                                   ) : null}
                                 </div>
@@ -437,13 +447,13 @@ export function Prompts({ models, extensions }: Props) {
                                   }}
                                 >
                                   {isSelected ? <MinusCircleIcon /> : <PlusCircleIcon />}
-                                  {isSelected ? "Deselect Prompt" : "Select Prompt"}
+                                  {isSelected ? t("prompts.deselectPrompt") : t("prompts.selectPrompt")}
                                 </ContextMenu.Item>
                                 <ContextMenu.Item
                                   className={styles.contextMenuItem}
                                   onSelect={() => handleCopyText(prompt)}
                                 >
-                                  <CopyClipboardIcon /> Copy Prompt Text{" "}
+                                  <CopyClipboardIcon /> {t("prompts.copyPromptText")}{" "}
                                 </ContextMenu.Item>
                               </ContextMenu.Content>
                             </ContextMenu.Portal>

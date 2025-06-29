@@ -8,6 +8,7 @@ import { SpeechBubbleIcon, BrandGithubIcon } from "@raycast/icons";
 import ExportButton from "@/app/(navigation)/(code)/components/ExportButton";
 import KeyboardShortcuts from "./components/keyboard-shortcuts";
 import { InfoDialog } from "./components/info-dialog";
+import { LanguageSelector } from "@/components/language-selector";
 
 export const metadata = {
   title: "Theme Explorer by Raycast",
@@ -26,6 +27,7 @@ export default async function Layout({ children, params }: { children: React.Rea
         <ThemeControls themes={themes} />
         <ThemeSwitcher themes={themes} />
         <NavigationActions className="hidden sm:flex">
+          <LanguageSelector className="w-20" />
           <InfoDialog />
         </NavigationActions>
       </div>

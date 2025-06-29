@@ -17,6 +17,7 @@ import { Button } from "@/components/button";
 import { InfoDialog } from "../components/InfoDialog";
 import { AiModel } from "@/api/ai";
 import { Extension } from "@/api/store";
+import { LanguageSelector } from "@/components/language-selector";
 
 type Props = {
   models: AiModel[];
@@ -84,6 +85,7 @@ export default function Presets({ models, extensions }: Props) {
         </div>
 
         <div className="sm:flex gap-2 hidden ">
+          <LanguageSelector />
           <InfoDialog />
           <ButtonGroup>
             <Button variant="primary" disabled>

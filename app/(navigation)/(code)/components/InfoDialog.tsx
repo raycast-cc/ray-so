@@ -6,11 +6,13 @@ import usePngClipboardSupported from "../util/usePngClipboardSupported";
 import { useCallback, useState } from "react";
 import useHotkeys from "@/utils/useHotkeys";
 import { SocialFooter } from "@/components/social-footer";
+import { useTranslation } from "@/utils/useLanguage";
 
 export function InfoDialog() {
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = useCallback(() => setIsOpen((prev) => !prev), [setIsOpen]);
   const pngClipboardSupported = usePngClipboardSupported();
+  const { t } = useTranslation();
 
   useHotkeys("shift+/", toggleOpen);
 
@@ -18,39 +20,33 @@ export function InfoDialog() {
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button variant="transparent" className="hidden md:flex gap-2">
-          <Info02Icon /> About
+          <Info02Icon /> {t("common.about")}
         </Button>
       </DialogTrigger>
       <DialogContent size="large">
         <div className="flex gap-8">
           <div className="flex flex-col gap-3 flex-1 text-[13px] text-gray-11 leading-relaxed">
-            <DialogTitle>About</DialogTitle>
-            <p>Code Images by Raycast is a tool to create beautiful screenshots of your code.</p>
+            <DialogTitle>{t("common.about")}</DialogTitle>
+            <p>{t("code.about.desc1")}</p>
+            <p>{t("code.about.desc2")}</p>
+            <p>{t("code.about.desc3")}</p>
+            <p>{t("code.about.desc4")}</p>
+            <h2 className="text-base font-medium text-gray-12">{t("common.contribute")}</h2>
             <p>
-              Pick a theme from a range of syntax colors and backgrounds, the language of your code and choose between
-              light or dark mode.
-            </p>
-            <p>
-              Customize the padding and when you’re ready, click export image in the top-right corner to save the image
-              as a png, svg or share a link to your code.
-            </p>
-            <p>You can also change the image resolution in the export menu.</p>
-            <h2 className="text-base font-medium text-gray-12">Contribute</h2>
-            <p>
-              The project is Open Source and{" "}
+              {t("code.about.contribute")}{" "}
               <a href="https://github.com/raycast/ray-so" className="text-gray-12 underline underline-offset-2">
-                available on GitHub
+                GitHub
               </a>
               .
             </p>
             <p>
-              If you have any questions or feedback, please write to us on{" "}
+              {t("code.about.feedback")}{" "}
               <a href="https://x.com/raycastapp" className="text-gray-12 underline underline-offset-2">
                 𝕏
               </a>{" "}
               or{" "}
               <a href="mailto:feedback+rayso@raycast.com" className="text-gray-12 underline underline-offset-2">
-                send us an email
+                email
               </a>
               .
             </p>
@@ -60,24 +56,24 @@ export function InfoDialog() {
           <div className="w-px h-full bg-gray-a3" />
 
           <div className="flex-1 flex flex-col gap-2">
-            <h2 className="font-medium -mt-[3px]">Shortcuts</h2>
+            <h2 className="font-medium -mt-[3px]">{t("common.shortcuts")}</h2>
             <div className="flex flex-col gap-4">
-              <Shortcut keys={["F"]}>Focus text editor</Shortcut>
-              <Shortcut keys={["Esc"]}>Unfocus text editor</Shortcut>
-              <Shortcut keys={["C"]}>Change colors</Shortcut>
-              <Shortcut keys={["B"]}>Toggle background</Shortcut>
-              <Shortcut keys={["D"]}>Toggle dark mode</Shortcut>
-              <Shortcut keys={["N"]}>Toggle line numbers</Shortcut>
-              <Shortcut keys={["P"]}>Change padding</Shortcut>
-              <Shortcut keys={["L"]}>Select language</Shortcut>
-              <Shortcut keys={["⌥", "click"]}>Highlight line</Shortcut>
-              <Shortcut keys={["⌥", "shift", "F"]}>Format code</Shortcut>
-              <Shortcut keys={["⌘", "K"]}>Toggle Export Menu</Shortcut>
-              <Shortcut keys={["⌘", "S"]}>Save PNG</Shortcut>
-              <Shortcut keys={["⌘", "⇧", "S"]}>Save SVG</Shortcut>
-              {pngClipboardSupported && <Shortcut keys={["⌘", "C"]}>Copy image</Shortcut>}
-              <Shortcut keys={["⌘", "⇧", "C"]}>Copy URL</Shortcut>
-              <Shortcut keys={["?"]}>Open shortcuts</Shortcut>
+              <Shortcut keys={["F"]}>{t("code.focusEditor")}</Shortcut>
+              <Shortcut keys={["Esc"]}>{t("code.unfocusEditor")}</Shortcut>
+              <Shortcut keys={["C"]}>{t("code.changeColors")}</Shortcut>
+              <Shortcut keys={["B"]}>{t("code.toggleBackground")}</Shortcut>
+              <Shortcut keys={["D"]}>{t("code.toggleDarkMode")}</Shortcut>
+              <Shortcut keys={["N"]}>{t("code.toggleLineNumbers")}</Shortcut>
+              <Shortcut keys={["P"]}>{t("code.changePadding")}</Shortcut>
+              <Shortcut keys={["L"]}>{t("code.selectLanguage")}</Shortcut>
+              <Shortcut keys={["⌥", "click"]}>{t("code.highlightLine")}</Shortcut>
+              <Shortcut keys={["⌥", "shift", "F"]}>{t("code.formatCode")}</Shortcut>
+              <Shortcut keys={["⌘", "K"]}>{t("code.toggleExportMenu")}</Shortcut>
+              <Shortcut keys={["⌘", "S"]}>{t("code.savePNG")}</Shortcut>
+              <Shortcut keys={["⌘", "⇧", "S"]}>{t("code.saveSVG")}</Shortcut>
+              {pngClipboardSupported && <Shortcut keys={["⌘", "C"]}>{t("code.copyImage")}</Shortcut>}
+              <Shortcut keys={["⌘", "⇧", "C"]}>{t("code.copyURL")}</Shortcut>
+              <Shortcut keys={["?"]}>{t("code.openShortcuts")}</Shortcut>
             </div>
           </div>
         </div>

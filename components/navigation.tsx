@@ -22,48 +22,50 @@ import QuicklinkExplorerIcon from "@/app/assets/quicklink-explorer.svg";
 import PromptExplorerIcon from "@/app/assets/prompt-explorer.svg";
 import ThemeExplorerIcon from "@/app/assets/theme-explorer.svg";
 import { Button } from "./button";
+import { useTranslation } from "@/utils/useLanguage";
+import { LanguageSelector } from "./language-selector";
 
 const links = [
   {
     href: "/",
-    label: "Code Images",
-    description: "Create beautiful images of your code",
+    labelKey: "nav.codeImages" as const,
+    descriptionKey: "nav.codeImages.desc" as const,
     icon: CodeImagesIcon,
   },
   {
     href: "/icon",
-    label: "Icon Maker",
-    description: "Create beautiful icons",
+    labelKey: "nav.iconMaker" as const,
+    descriptionKey: "nav.iconMaker.desc" as const,
     icon: IconMakerIcon,
   },
   {
     href: "/prompts",
-    label: "Prompts",
-    description: "Explore AI Prompts for Raycast",
+    labelKey: "nav.prompts" as const,
+    descriptionKey: "nav.prompts.desc" as const,
     icon: PromptExplorerIcon,
   },
   {
     href: "/presets",
-    label: "Presets",
-    description: "Explore AI Presets for Raycast",
+    labelKey: "nav.presets" as const,
+    descriptionKey: "nav.presets.desc" as const,
     icon: PresetExplorerIcon,
   },
   {
     href: "/quicklinks",
-    label: "Quicklinks",
-    description: "Explore Raycast Quicklinks",
+    labelKey: "nav.quicklinks" as const,
+    descriptionKey: "nav.quicklinks.desc" as const,
     icon: QuicklinkExplorerIcon,
   },
   {
     href: "/snippets",
-    label: "Snippets",
-    description: "Browse and import Raycast Snippets",
+    labelKey: "nav.snippets" as const,
+    descriptionKey: "nav.snippets.desc" as const,
     icon: SnippetExplorerIcon,
   },
   {
     href: "/themes",
-    label: "Themes",
-    description: "Browse and import Raycast Themes",
+    labelKey: "nav.themes" as const,
+    descriptionKey: "nav.themes.desc" as const,
     icon: ThemeExplorerIcon,
   },
 ];
@@ -74,6 +76,7 @@ export function Navigation() {
   const segment = segments[0] || "(code)";
   const showBackButton = segments.find((s) => s === "shared") ? segments.length > 1 : segments.length > 2;
   const activeLink = links.find((link) => (segment === "(code)" ? links[0] : link.href.includes(segment))) || links[0];
+  const { t } = useTranslation();
 
   return (
     <nav className="flex items-center gap-3 h-[50px] pl-4 pr-5 bg-gray-2 text-white w-full fixed z-10">
@@ -104,7 +107,7 @@ export function Navigation() {
           <DropdownMenuTrigger asChild>
             <Button variant="transparent" className="py-1 pl-1 pr-2 gap-2 data-[state=open]:bg-gray-4 text-gray-12">
               {activeLink.icon && <activeLink.icon className="w-6 h-6" />}
-              <span className="text-[15px] font-medium">{activeLink.label}</span>
+              <span className="text-[15px] font-medium">{t(activeLink.labelKey)}</span>
               <ChevronDownIcon className="w-4 h-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -118,8 +121,8 @@ export function Navigation() {
                 <div className="flex gap-3 items-center">
                   {link.icon && <link.icon className="w-8 h-8" />}
                   <div className="flex flex-col leading-none gap-1">
-                    <span className="text-[15px] font-medium text-gray-12">{link.label}</span>
-                    <span className="text-[13px] text-gray-9 group-hover:text-gray-10">{link.description}</span>
+                    <span className="text-[15px] font-medium text-gray-12">{t(link.labelKey)}</span>
+                    <span className="text-[13px] text-gray-9 group-hover:text-gray-10">{t(link.descriptionKey)}</span>
                   </div>
                 </div>
               </DropdownMenuItem>

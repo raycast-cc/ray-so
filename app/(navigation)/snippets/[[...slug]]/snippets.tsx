@@ -41,6 +41,7 @@ import { ButtonGroup } from "@/components/button-group";
 import { InfoDialog } from "../components/InfoDialog";
 import { Kbd, Kbds } from "@/components/kbd";
 import { getRaycastFlavor } from "@/app/RaycastFlavor";
+import { LanguageSelector } from "@/components/language-selector";
 
 const modifiers = ["!", ":", "_", "__", "-", "@", "@@", "$", ";", ";;", "/", "//", "none"] as const;
 
@@ -283,6 +284,7 @@ export default function Snippets() {
         <div className={styles.navControls}>
           {!isTouch ? (
             <>
+              <LanguageSelector />
               <InfoDialog />
               <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
                 <DialogTrigger asChild>

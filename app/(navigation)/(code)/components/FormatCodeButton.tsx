@@ -9,11 +9,13 @@ import { Button } from "@/components/button";
 import { toast } from "@/components/toast";
 import { cn } from "@/utils/cn";
 import { useEffect, useState } from "react";
+import { useTranslation } from "@/utils/useLanguage";
 
 const FormatButton: React.FC = () => {
   const [selectedLanguage, setSelectedLanguage] = useAtom(selectedLanguageAtom);
   const [code, setCode] = useAtom(codeAtom);
   const [isClient, setIsClient] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     setIsClient(true);
@@ -72,7 +74,7 @@ const FormatButton: React.FC = () => {
       )}
     >
       <WandIcon width={16} height={16} />
-      Format Code
+      {t("common.format")}
     </Button>
   );
 };

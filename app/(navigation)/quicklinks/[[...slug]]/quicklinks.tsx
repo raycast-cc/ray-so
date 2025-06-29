@@ -34,6 +34,7 @@ import { shortenUrl } from "@/utils/common";
 import { toast } from "@/components/toast";
 import { Input, InputSlot } from "@/components/input";
 import { getRaycastFlavor } from "@/app/RaycastFlavor";
+import { LanguageSelector } from "@/components/language-selector";
 
 export function Quicklinks() {
   const [enableViewObserver, setEnableViewObserver] = React.useState(false);
@@ -229,6 +230,7 @@ export function Quicklinks() {
           </Button>
         </div>
         <div className="sm:flex gap-2 hidden">
+          <LanguageSelector />
           <InfoDialog />
           <ButtonGroup>
             <Button variant="primary" disabled={selectedQuicklinks.length === 0} onClick={() => handleAddToRaycast()}>

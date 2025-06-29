@@ -38,6 +38,7 @@ import { AiModel } from "@/api/ai";
 import { Extension } from "@/api/store";
 import { getExtensionIdsFromString } from "@/utils/getExtensionIdsFromString";
 import { AIExtension } from "@/components/ai-extension";
+import { LanguageSelector } from "@/components/language-selector";
 
 type PresetPageProps = {
   preset: Preset;
@@ -186,6 +187,7 @@ export function PresetDetail({ preset, relatedPresets, models, extensions }: Pre
           </Button>
         </div>
         <div className="sm:flex gap-2 hidden ">
+          <LanguageSelector />
           <InfoDialog />
           <ButtonGroup>
             <Button variant="primary" onClick={() => handleAddToRaycast()}>

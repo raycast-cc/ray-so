@@ -55,6 +55,7 @@ import useHotkeys from "@/utils/useHotkeys";
 import { Input, InputSlot } from "@/components/input";
 import { SelectItemText } from "@radix-ui/react-select";
 import { InfoDialog } from "./components/InfoDialog";
+import { LanguageSelector } from "@/components/language-selector";
 import { Kbd, Kbds } from "@/components/kbd";
 import { ScrollArea } from "@/components/scroll-area";
 
@@ -859,6 +860,7 @@ export const IconGenerator = () => {
             </Button>
           </div>
           <div className="sm:flex gap-2 hidden">
+            <LanguageSelector />
             <InfoDialog />
             <ButtonGroup>
               <Button variant="primary" className={styles.exportButton} onClick={() => setShowExportModal(true)}>

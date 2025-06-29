@@ -39,6 +39,7 @@ import { Tooltip, TooltipContent } from "@/components/tooltip";
 import { TooltipTrigger } from "@/components/tooltip";
 import { Extension } from "@/api/store";
 import { AIExtension } from "@/components/ai-extension";
+import { LanguageSelector } from "@/components/language-selector";
 
 type Props = {
   models: AiModel[];
@@ -201,6 +202,7 @@ export function Prompts({ models, extensions }: Props) {
           </Button>
         </div>
         <div className="sm:flex gap-2 hidden">
+          <LanguageSelector />
           <InfoDialog />
           <ButtonGroup>
             <Button variant="primary" disabled={selectedPrompts.length === 0} onClick={() => handleAddToRaycast()}>

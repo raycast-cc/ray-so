@@ -1,7 +1,10 @@
 import { Button } from "@/components/button";
 import styles from "./Instructions.module.css";
+import { useTranslation } from "@/utils/useLanguage";
 
 export function Instructions() {
+  const { t } = useTranslation();
+
   return (
     <div className={styles.root}>
       <div className={styles.skeletons}>
@@ -12,14 +15,11 @@ export function Instructions() {
         <Cursor />
       </div>
 
-      <h3 className={styles.title}>Install AI Commands</h3>
-      <p className={styles.description}>
-        Select a prompt by clicking on it. Hold <kbd data-variant="small">⌘</kbd> to select multiple. Click{" "}
-        <strong>Add to Raycast</strong> to import them directly.
-      </p>
+      <h3 className={styles.title}>{t("instructions.installCommands")}</h3>
+      <p className={styles.description}>{t("instructions.selectPrompt")}</p>
 
       <Button variant="primary" disabled>
-        Add to Raycast
+        {t("export.addToRaycast")}
       </Button>
     </div>
   );

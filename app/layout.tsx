@@ -8,6 +8,7 @@ import { Viewport } from "next";
 import { Log } from "./log";
 import { Toaster } from "@/components/toast";
 import { Suspense } from "react";
+import { LanguageProvider } from "@/utils/useLanguage";
 
 const inter = Inter({ subsets: ["latin"], weight: ["400", "500"], display: "swap" });
 
@@ -37,10 +38,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className="dark" style={{ colorScheme: "dark" }}>
       <TooltipProvider>
         <body className={cn("isolate", inter.className)}>
-          <Log />
+          <LanguageProvider>
+            <Log />
 
-          {children}
-          <Toaster position="top-center" offset={70} duration={2000} />
+            {children}
+            <Toaster position="top-center" offset={70} duration={2000} />
+          </LanguageProvider>
         </body>
       </TooltipProvider>
       <Analytics />

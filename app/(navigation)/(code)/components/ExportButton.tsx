@@ -35,6 +35,7 @@ import {
 } from "@/components/dropdown-menu";
 import { DownloadIcon } from "@raycast/icons";
 import { Kbd, Kbds } from "@/components/kbd";
+import { useTranslation } from "@/utils/useLanguage";
 
 const ExportButton: React.FC = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -47,6 +48,7 @@ const ExportButton: React.FC = () => {
   const [exportSize, setExportSize] = useAtom(exportSizeAtom);
   const selectedLanguage = useAtomValue(selectedLanguageAtom);
   const autoDetectLanguage = useAtomValue(autoDetectLanguageAtom);
+  const { t } = useTranslation();
 
   const savePng = async () => {
     if (!frameContext?.current) {
@@ -70,18 +72,16 @@ const ExportButton: React.FC = () => {
       throw new Error("Couldn't find a frame to export");
     }
 
-    const clipboardItem = new ClipboardItem(
-      {
-        "image/png": toBlob(frameContext.current, {
-          pixelRatio: exportSize,
-        }).then((blob) => {
-            if (!blob) {
-              throw new Error("expected toBlob to return a blob");
-            }
-            return blob;
-        }),
-      }
-    );
+    const clipboardItem = new ClipboardItem({
+      "image/png": toBlob(frameContext.current, {
+        pixelRatio: exportSize,
+      }).then((blob) => {
+        if (!blob) {
+          throw new Error("expected toBlob to return a blob");
+        }
+        return blob;
+      }),
+    });
 
     await navigator.clipboard.write([clipboardItem]);
 
@@ -183,14 +183,14 @@ const ExportButton: React.FC = () => {
         </DropdownMenuTrigger>
         <DropdownMenuContent side="bottom" align="end">
           <DropdownMenuItem onSelect={dropdownHandler(savePng)}>
-            <ImageIcon /> Save PNG{" "}
+            <ImageIcon /> {t("export.savePNG")}{" "}
             <Kbds>
               <Kbd>⌘</Kbd>
               <Kbd>S</Kbd>
             </Kbds>
           </DropdownMenuItem>
           <DropdownMenuItem onSelect={dropdownHandler(saveSvg)}>
-            <ImageIcon /> Save SVG
+            <ImageIcon /> {t("export.saveSVG")}
             <Kbds>
               <Kbd>⌘</Kbd>
               <Kbd>⇧</Kbd>
@@ -199,7 +199,7 @@ const ExportButton: React.FC = () => {
           </DropdownMenuItem>
           {pngClipboardSupported && (
             <DropdownMenuItem onSelect={dropdownHandler(copyPng)}>
-              <ClipboardIcon /> Copy Image
+              <ClipboardIcon /> {t("export.copyImage")}
               <Kbds>
                 <Kbd>⌘</Kbd>
                 <Kbd>C</Kbd>
@@ -207,7 +207,7 @@ const ExportButton: React.FC = () => {
             </DropdownMenuItem>
           )}
           <DropdownMenuItem onSelect={dropdownHandler(copyUrl)}>
-            <LinkIcon /> Copy URL
+            <LinkIcon /> {t("export.copyURL")}
             <Kbds>
               <Kbd>⌘</Kbd>
               <Kbd>⇧</Kbd>
@@ -217,7 +217,7 @@ const ExportButton: React.FC = () => {
           <DropdownMenuSeparator />
           <DropdownMenuSub>
             <DropdownMenuSubTrigger value={SIZE_LABELS[exportSize]}>
-              <ArrowsExpandingIcon /> Size
+              <ArrowsExpandingIcon /> {t("export.size")}
             </DropdownMenuSubTrigger>
             <DropdownMenuSubContent sideOffset={8}>
               <DropdownMenuRadioGroup value={exportSize.toString()}>

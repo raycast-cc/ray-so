@@ -43,8 +43,11 @@ import { Kbd, Kbds } from "@/components/kbd";
 import { Extension } from "@/api/store";
 import { AIExtension } from "@/components/ai-extension";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/tooltip";
+import { useLanguage } from "@/utils/useLanguage";
+import { LanguageSelector } from "@/components/language-selector";
 
 export function Shared({ prompts, extensions }: { prompts: Prompt[]; extensions: Extension[] }) {
+  const { t } = useLanguage();
   const router = useRouter();
 
   const [copied, setCopied] = React.useState(false);
@@ -196,32 +199,33 @@ export function Shared({ prompts, extensions }: { prompts: Prompt[]; extensions:
       <NavigationActions>
         <div className="flex gap-2 sm:hidden">
           <Button variant="primary" disabled={selectedPrompts.length === 0} onClick={() => handleCopyUrl()}>
-            <LinkIcon /> Copy URL to Share
+            <LinkIcon /> {t("export.copyURLToShare")}
           </Button>
         </div>
         <div className="sm:flex gap-2 hidden">
+          <LanguageSelector />
           <InfoDialog />
           <ButtonGroup>
             <Button variant="primary" disabled={selectedPrompts.length === 0} onClick={() => handleAddToRaycast()}>
-              <PlusCircleIcon /> Add to Raycast
+              <PlusCircleIcon /> {t("export.addToRaycast")}
             </Button>
 
             <DropdownMenu open={actionsOpen} onOpenChange={setActionsOpen}>
               <DropdownMenuTrigger asChild>
-                <Button variant="primary" disabled={selectedPrompts.length === 0} aria-label="Export options">
+                <Button variant="primary" disabled={selectedPrompts.length === 0} aria-label={t("export.toggleMenu")}>
                   <ChevronDownIcon />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem disabled={selectedPrompts.length === 0} onSelect={() => handleDownload()}>
-                  <DownloadIcon /> Download JSON
+                  <DownloadIcon /> {t("export.downloadJSON")}
                   <Kbds>
                     <Kbd>⌘</Kbd>
                     <Kbd>D</Kbd>
                   </Kbds>
                 </DropdownMenuItem>
                 <DropdownMenuItem disabled={selectedPrompts.length === 0} onSelect={() => handleCopyData()}>
-                  <CopyClipboardIcon /> Copy JSON{" "}
+                  <CopyClipboardIcon /> {t("export.copyJSON")}{" "}
                   <Kbds>
                     <Kbd>⌘</Kbd>
                     <Kbd>⌥</Kbd>

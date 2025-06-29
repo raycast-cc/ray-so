@@ -22,6 +22,7 @@ import ExportButton from "./components/ExportButton";
 import { NavigationActions } from "@/components/navigation";
 import { InfoDialog } from "./components/InfoDialog";
 import FormatButton from "./components/FormatCodeButton";
+import { LanguageSelector } from "@/components/language-selector";
 
 export function Code() {
   const [highlighter, setHighlighter] = useAtom(highlighterAtom);
@@ -40,6 +41,7 @@ export function Code() {
     <>
       <FrameContextStore>
         <NavigationActions>
+          <LanguageSelector />
           <InfoDialog />
           <FormatButton />
           <ExportButton />

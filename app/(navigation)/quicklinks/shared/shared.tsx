@@ -22,8 +22,11 @@ import { QuicklinkComponent } from "../components/quicklink";
 import { toast } from "@/components/toast";
 import { shortenUrl } from "@/utils/common";
 import { getRaycastFlavor } from "@/app/RaycastFlavor";
+import { useLanguage } from "@/utils/useLanguage";
+import { LanguageSelector } from "@/components/language-selector";
 
 export function Shared({ quicklinks }: { quicklinks: Quicklink[] }) {
+  const { t } = useLanguage();
   const router = useRouter();
 
   const initialCategories = useMemo(
@@ -207,32 +210,37 @@ export function Shared({ quicklinks }: { quicklinks: Quicklink[] }) {
       <NavigationActions>
         <div className="flex gap-2 sm:hidden">
           <Button variant="primary" disabled={selectedQuicklinks.length === 0} onClick={() => handleCopyUrl()}>
-            <LinkIcon /> Copy URL to Share
+            <LinkIcon /> {t("export.copyURLToShare")}
           </Button>
         </div>
         <div className="sm:flex gap-2 hidden">
+          <LanguageSelector />
           <InfoDialog />
           <ButtonGroup>
             <Button variant="primary" disabled={selectedQuicklinks.length === 0} onClick={() => handleAddToRaycast()}>
-              <PlusCircleIcon /> Add to Raycast
+              <PlusCircleIcon /> {t("export.addToRaycast")}
             </Button>
 
             <DropdownMenu open={actionsOpen} onOpenChange={setActionsOpen}>
               <DropdownMenuTrigger asChild>
-                <Button variant="primary" disabled={selectedQuicklinks.length === 0} aria-label="Export options">
+                <Button
+                  variant="primary"
+                  disabled={selectedQuicklinks.length === 0}
+                  aria-label={t("export.toggleMenu")}
+                >
                   <ChevronDownIcon />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem disabled={selectedQuicklinks.length === 0} onSelect={() => handleDownload()}>
-                  <DownloadIcon /> Download JSON
+                  <DownloadIcon /> {t("export.downloadJSON")}
                   <Kbds>
                     <Kbd>⌘</Kbd>
                     <Kbd>D</Kbd>
                   </Kbds>
                 </DropdownMenuItem>
                 <DropdownMenuItem disabled={selectedQuicklinks.length === 0} onSelect={() => handleCopyData()}>
-                  <CopyClipboardIcon /> Copy JSON{" "}
+                  <CopyClipboardIcon /> {t("export.copyJSON")}{" "}
                   <Kbds>
                     <Kbd>⌘</Kbd>
                     <Kbd>⌥</Kbd>

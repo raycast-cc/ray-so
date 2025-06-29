@@ -11,12 +11,14 @@ import { loadingLanguageAtom } from "../store";
 import { Select, SelectContent, SelectItem, SelectItemText, SelectTrigger, SelectValue } from "@/components/select";
 import { cn } from "@/utils/cn";
 import { ChevronUpIcon } from "@raycast/icons";
+import { useTranslation } from "@/utils/useLanguage";
 
 const LanguageControl: React.FC = () => {
   const [isOpen, setOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useAtom(selectedLanguageAtom);
   const [autoDetectLanguage] = useAtom(autoDetectLanguageAtom);
   const [isLoadingLanguage] = useAtom(loadingLanguageAtom);
+  const { t } = useTranslation();
 
   useHotkeys("l", (event) => {
     event.preventDefault();
@@ -26,7 +28,7 @@ const LanguageControl: React.FC = () => {
   });
 
   return (
-    <ControlContainer title="Language">
+    <ControlContainer title={t("common.language")}>
       <Select
         open={isOpen}
         onOpenChange={(open) => setOpen(open)}
@@ -49,7 +51,7 @@ const LanguageControl: React.FC = () => {
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="auto-detect">
-            <SelectItemText>Auto-Detect</SelectItemText>
+            <SelectItemText>{t("common.autoDetect")}</SelectItemText>
           </SelectItem>
           {Object.values(LANGUAGES).map((language, index) => (
             <SelectItem key={index} value={language.name}>

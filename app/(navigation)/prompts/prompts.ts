@@ -1427,29 +1427,5 @@ export const categories: Category[] = [
   })),
 ];
 
-export const allPrompts = categories.flatMap((category) => category.prompts);
-export const categories: Category[] = [
-  {
-    name: "中文社区",
-    slug: /zh,
-    prompts: chinesePrompts.map((prompt) => ({
-      ...prompt,
-      iconComponent: Icons[prompt.icon],
-    })),
-    icon: globe as const,
-    iconComponent: Icons[globe],
-  },
-  ...baseCategories.map((category) => ({
-    ...category,
-    iconComponent: Icons[category.icon],
-    prompts: category.prompts.map((prompt) => {
-      return {
-        ...prompt,
-        iconComponent: Icons[prompt.icon],
-      };
-    }),
-  })),
-];
 
-export const allPrompts = categories.flatMap((category) => category.prompts);
-export const categories: Category[] = [...(newCategory.prompts.length > 0 ? [newCategory] : []), ...baseCategories];
+

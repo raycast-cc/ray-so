@@ -1359,31 +1359,6 @@ const newCategory = {
 // 中文 Prompt 数据（新增）
 export const chinesePrompts: Prompt[] = [
   {
-    id: code-review-zh,
-    title: 代码审查专家,
-    prompt: ,
-    icon: code as const,
-    category: coding,
-    date: 2026-02-06,
-    author: { name: ray-so-zh },
-  },
-  {
-    id: chinese-summary-zh,
-    title: 中文内容摘要,
-    prompt: ,
-    icon: document as const,
-    category: analysis,
-    date: 2026-02-06,
-    author: { name: ray-so-zh },
-  },
-];
-
-// 导出分类（包含中文数据）
-
-
-// 中文 Prompt 数据（新增）
-export const chinesePrompts: Prompt[] = [
-  {
     id: 'code-review-zh',
     title: '代码审查专家',
     prompt: '你是一位高级软件工程师，进行代码审查。分析代码的：1. 潜在 bug 和边界情况 2. 内存安全问题 3. 安全漏洞 4. 代码风格和可读性 5. 测试覆盖率。在适用的情况下，提供具体的建议和代码示例。',

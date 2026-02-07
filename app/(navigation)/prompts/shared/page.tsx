@@ -50,7 +50,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
         url: "/prompts/shared",
         title: pageTitle,
         description: pageDescription,
-        siteName: "Ray.so",
+        siteName: "Ray.so 中文版",
         images: [
           {
             url: ogImage,
@@ -93,7 +93,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
         url: "/prompts/shared",
         title: pageTitle,
         description: pageDescription,
-        siteName: "Ray.so",
+        siteName: "Ray.so 中文版",
         images: [
           {
             url: ogImage,

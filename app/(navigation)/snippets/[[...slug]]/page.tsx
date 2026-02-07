@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     url: "/snippets",
     title: pageTitle,
     description: pageDescription,
-    siteName: "Ray.so",
+    siteName: "Ray.so 中文版",
     images: [
       {
         url: ogUrl,

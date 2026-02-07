@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     url: "/presets",
     title: pageTitle,
     description: pageDescription,
-    siteName: "Ray.so",
+    siteName: "Ray.so 中文版",
     images: [
       {
         url: ogUrl,

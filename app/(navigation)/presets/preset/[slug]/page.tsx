@@ -29,7 +29,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       url: `/presets/preset/${params.slug}`,
       title: pageTitle,
       description: preset.description,
-      siteName: "Ray.so",
+      siteName: "Ray.so 中文版",
       images: [
         {
           url: ogImage,

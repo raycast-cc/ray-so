@@ -6,8 +6,8 @@ import { getExtensions } from "@/api/store";
 import { allPrompts } from "../prompts";
 import { getExtensionIdsFromString } from "@/utils/getExtensionIdsFromString";
 
-const pageTitle = "Prompt Explorer by Raycast";
-const pageDescription = "Easily browse, share, and add prompts to Raycast.";
+const pageTitle = "提示词探索器 - Ray.so 中文版";
+const pageDescription = "轻松浏览、分享和添加中文 AI 提示词到 Raycast。";
 const ogUrl = OgImage.src;
 
 export const metadata: Metadata = {
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     url: "/prompts",
     title: pageTitle,
     description: pageDescription,
-    siteName: "Ray.so",
+    siteName: "Ray.so 中文版",
     images: [
       {
         url: ogUrl,
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
       },
     ],
   },
-  keywords: "prompts, AI, import, raycast, ideas",
+  keywords: "提示词, AI, 导入, raycast, 中文社区, prompts",
 };
 
 export default async function Page() {

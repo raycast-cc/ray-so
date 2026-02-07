@@ -1354,4 +1354,102 @@ const newCategory = {
   iconComponent: Icons["calendar"],
 };
 
+
+
+// 中文 Prompt 数据（新增）
+export const chinesePrompts: Prompt[] = [
+  {
+    id: code-review-zh,
+    title: 代码审查专家,
+    prompt: ,
+    icon: code as const,
+    category: coding,
+    date: 2026-02-06,
+    author: { name: ray-so-zh },
+  },
+  {
+    id: chinese-summary-zh,
+    title: 中文内容摘要,
+    prompt: ,
+    icon: document as const,
+    category: analysis,
+    date: 2026-02-06,
+    author: { name: ray-so-zh },
+  },
+];
+
+// 导出分类（包含中文数据）
+
+
+// 中文 Prompt 数据（新增）
+export const chinesePrompts: Prompt[] = [
+  {
+    id: 'code-review-zh',
+    title: '代码审查专家',
+    prompt: '你是一位高级软件工程师，进行代码审查。分析代码的：1. 潜在 bug 和边界情况 2. 内存安全问题 3. 安全漏洞 4. 代码风格和可读性 5. 测试覆盖率。在适用的情况下，提供具体的建议和代码示例。',
+    icon: 'code' as const,
+    category: 'coding',
+    date: '2026-02-06' as const,
+    author: { name: 'ray-so-zh' },
+  },
+  {
+    id: 'chinese-summary-zh',
+    title: '中文内容摘要',
+    prompt: '摘要以下中文内容。准确保留要点和原意。使用简体中文输出，专注于：1. 主题 2. 关键论点 3. 重要细节 4. 结论。输出清晰简洁的中文摘要。',
+    icon: 'document' as const,
+    category: 'analysis',
+    date: '2026-02-06' as const,
+    author: { name: 'ray-so-zh' },
+  },
+];
+
+// 导出分类（包含中文数据）
+export const categories: Category[] = [
+  {
+    name: "中文社区",
+    slug: '/zh',
+    prompts: chinesePrompts.map((prompt) => ({
+      ...prompt,
+      iconComponent: Icons[prompt.icon],
+    })),
+    icon: 'globe' as const,
+    iconComponent: Icons['globe'],
+  },
+  ...baseCategories.map((category) => ({
+    ...category,
+    iconComponent: Icons[category.icon],
+    prompts: category.prompts.map((prompt) => {
+      return {
+        ...prompt,
+        iconComponent: Icons[prompt.icon],
+      };
+    }),
+  })),
+];
+
+export const allPrompts = categories.flatMap((category) => category.prompts);
+export const categories: Category[] = [
+  {
+    name: "中文社区",
+    slug: /zh,
+    prompts: chinesePrompts.map((prompt) => ({
+      ...prompt,
+      iconComponent: Icons[prompt.icon],
+    })),
+    icon: globe as const,
+    iconComponent: Icons[globe],
+  },
+  ...baseCategories.map((category) => ({
+    ...category,
+    iconComponent: Icons[category.icon],
+    prompts: category.prompts.map((prompt) => {
+      return {
+        ...prompt,
+        iconComponent: Icons[prompt.icon],
+      };
+    }),
+  })),
+];
+
+export const allPrompts = categories.flatMap((category) => category.prompts);
 export const categories: Category[] = [...(newCategory.prompts.length > 0 ? [newCategory] : []), ...baseCategories];

@@ -12,8 +12,8 @@ import { LanguageProvider } from "@/utils/useLanguage";
 
 const inter = Inter({ subsets: ["latin"], weight: ["400", "500"], display: "swap" });
 
-const title = "Ray.so";
-const description = "Ray.so";
+const title = "Ray.so 中文版";
+const description = "AI 提示词工具箱 - 基于 Ray.so";
 
 export const metadata = {
   metadataBase: new URL(BASE_URL),
@@ -35,7 +35,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark" style={{ colorScheme: "dark" }}>
+    <html lang="zh-Hans" className="dark" style={{ colorScheme: "dark" }}>
       <TooltipProvider>
         <body className={cn("isolate", inter.className)}>
           <LanguageProvider>
